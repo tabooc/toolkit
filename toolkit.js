@@ -245,7 +245,9 @@
 	 * @return {Boolean}     
 	 */
 	toolkit.typeof = function(obj) {
-		return isNaN(obj) ? 'NaN' : Object.prototype.toString.call(obj).slice(8, -1);
+		var type = Object.prototype.toString.call(obj).slice(8, -1);
+		if ('Number' === type && isNaN(obj)) return 'NaN';
+		return type;
 	};
 
 	/**
@@ -277,7 +279,7 @@
 	 * @return {Boolean}
 	 */
 	toolkit.isArray = function(arg) {
-		return Object.prototype.toString.call(arg) === '[object Array]';
+		return this.typeof(arg) === '[object Array]';
 	};
 
 	/**
