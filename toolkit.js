@@ -543,7 +543,7 @@
 	/**
 	 * 将目标字符串转换成日期对象
 	 * @param  {String} source 目标字符串
-	 * @return {Date}        转换后的日起对象
+	 * @return {Date}        转换后的日期对象
 	 */
 	toolkit.dateParse = function(source) {
 		var reg = new RegExp("^\\d+(\\-|\\/)\\d+(\\-|\\/)\\d+\x24");
