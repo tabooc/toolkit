@@ -576,6 +576,15 @@
 		return new Date(year, month, 0).getDate();
 	};
 
+	/**
+	 * 闰年判断
+	 * @param  {Number | String} year 合法的年份
+	 * @return {Boolean}
+	 */
+	toolkit.leapYear = function(year){
+		return this.getDate(year,2) === 29;
+	};
+
 	//浏览器标识码
 	var _userAgent = window.navigator.userAgent.toLowerCase();
 

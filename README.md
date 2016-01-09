@@ -34,6 +34,7 @@ javascript toolkit
 - `toolkit.dateFormat` 日期格式化 `toolkit.dateFormat(new Date(),'yyyy-MM-dd HH:mm:ss')`
 - `toolkit.dateParse` 将目标字符串转换成日期对象 `toolkit.dateParse('2016-01-09 18:30:56')`
 - `toolkit.getDate` 获取指定月份的天数 `toolkit.getDate(2016,2)`
+- `toolkit.leapYear` 闰年判断 `toolkit.leapYear(2016)`
 - `toolkit.ios` 是否是iOS系统 `toolkit.ios()`
 - `toolkit.iphone` 是否是iPhone `toolkit.iphone()`
 - `toolkit.ipod` 是否是iPod `toolkit.ipod()`
