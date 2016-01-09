@@ -20,6 +20,7 @@ javascript toolkit
 - `toolkit.default` 默认值设置 `toolkit.default('','默认值')`
 - `toolkit.randomStr` 随机字符串生成 `toolkit.randomStr(15),toolkit.randomStr(15,'$%^&*()_-+=',true)`
 - `toolkit.randomColor` 生成HEX随机颜色 `toolkit.randomColor()`
+- `toolkit.isCn` 检测字符串是否全是中文 `toolkit.isCn('中文')`
 - `toolkit.objectSize` 获取对象长度 `toolkit.objectSize({a:1,b:2,name:'小明'})`
 - `toolkit.range` 生成范围为[start,end)的整数数组 `toolkit.range(1,10)`
 - `toolkit.isArray` 判断目标对象是否是数组 `toolkit.isArray([1,2,3])`
@@ -31,7 +32,6 @@ javascript toolkit
 - `toolkit.dateFormat` 日期格式化 `toolkit.dateFormat(new Date(),'yyyy-MM-dd HH:mm:ss')`
 - `toolkit.dateParse` 将目标字符串转换成日期对象 `toolkit.dateParse('2016-01-09 18:30:56')`
 - `toolkit.getDate` 获取指定月份的天数 `toolkit.getDate(2016,2)`
-- `toolkit.userAgent` 浏览器标识码 `toolkit.userAgent`
 - `toolkit.ios` 是否是iOS系统 `toolkit.ios()`
 - `toolkit.iphone` 是否是iPhone `toolkit.iphone()`
 - `toolkit.ipod` 是否是iPod `toolkit.ipod()`

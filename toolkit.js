@@ -218,6 +218,15 @@
 	};
 
 	/**
+	 * 检测字符串是否全是中文
+	 * @param  {String}  string 要检测的字符串
+	 * @return {Boolean}        
+	 */
+	toolkit.isCn = function(string){
+		return /^[\u4e00-\u9fa5]+$/g.test(string);
+	};
+
+	/**
 	 * 获取对象长度
 	 * @param  {Object} obj 对象,如{a:1,b:2}
 	 * @return {Number}
@@ -498,42 +507,42 @@
 	};
 
 	//浏览器标识码
-	toolkit.userAgent = window.navigator.userAgent.toLowerCase();
+	var _userAgent = window.navigator.userAgent.toLowerCase();
 
 	toolkit.osType = function(needle) {
-		return this.userAgent.indexOf(needle) !== -1;
+		return _userAgent.indexOf(needle) !== -1;
 	};
 
 	toolkit.ios = function() {
-		return this.iphone() || this.ipod() || this.ipad();
+		return _userAgent.iphone() || _userAgent.ipod() || _userAgent.ipad();
 	};
 
 	toolkit.iphone = function() {
-		return this.osType('iphone');
+		return _userAgent.osType('iphone');
 	};
 
 	toolkit.ipod = function() {
-		return this.osType('ipod');
+		return _userAgent.osType('ipod');
 	};
 
 	toolkit.ipad = function() {
-		return this.osType('ipad');
+		return _userAgent.osType('ipad');
 	};
 
 	toolkit.android = function() {
-		return this.osType('android');
+		return _userAgent.osType('android');
 	};
 
 	toolkit.androidPhone = function() {
-		return this.android() && this.osType('mobile');
+		return _userAgent.android() && _userAgent.osType('mobile');
 	};
 
 	toolkit.androidTablet = function() {
-		return this.android() && !this.osType('mobile');
+		return _userAgent.android() && !_userAgent.osType('mobile');
 	};
 	//判断是否是微信环境
 	toolkit.isWechat = function() {
-		if (this.userAgent.match(/MicroMessenger/i) == "micromessenger") {
+		if (_userAgent.match(/MicroMessenger/i) == "micromessenger") {
 			return true;
 		}
 		return false;
