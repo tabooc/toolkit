@@ -210,6 +210,14 @@
 	};
 
 	/**
+	 * 生成HEX随机颜色
+	 * @return {String} #ff0000形式色值
+	 */
+	toolkit.randomColor = function(){
+		return '#'+('00000'+(Math.random()*0x1000000<<0).toString(16)).substr(-6); 
+	};
+
+	/**
 	 * 获取对象长度
 	 * @param  {Object} obj 对象,如{a:1,b:2}
 	 * @return {Number}
