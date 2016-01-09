@@ -626,5 +626,18 @@
 		return (window.innerHeight / window.innerWidth) < 1;
 	};
 
+	/**
+	 * 运行代码
+	 * @param  {String} id 文本域ID
+	 * @return {undefined}   
+	 */
+	toolkit.runCode = function(id) {
+		var code = document.getElementById(id).value;
+		var newWindow = window.open();
+		newWindow.opener = null;
+		newWindow.document.write(code);
+		newWindow.document.close();
+	};
+
 	return toolkit;
 }));

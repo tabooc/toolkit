@@ -44,3 +44,4 @@ javascript toolkit
 - `toolkit.isWechat` 是否是微信环境 `toolkit.isWechat()`
 - `toolkit.portrait` 是否竖屏 `toolkit.portrait()`
 - `toolkit.landscape` 是否横屏 `toolkit.landscape()`
+- `toolkit.runCode` 执行代码 `toolkit.runCode(id)`
