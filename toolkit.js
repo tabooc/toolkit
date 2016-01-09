@@ -22,7 +22,7 @@
 	var toolkit = {};
 
 	//版本
-	toolkit.version = '1.0.0';
+	toolkit.version = '1.0.2';
 
 	/**
 	 * 空方法
@@ -248,6 +248,65 @@
 		var type = Object.prototype.toString.call(obj).slice(8, -1);
 		if ('Number' === type && isNaN(obj)) return 'NaN';
 		return type;
+	};
+
+	/**
+	 * 克隆对象
+	 * @return {Object}
+	 */
+	toolkit.extend = function() {
+		var options, name, src, copy, copyIsArray, clone,
+			target = arguments[0] || {},
+			i = 1,
+			length = arguments.length,
+			deep = false;
+		//如果第一个值为bool值，那么就将第二个参数作为目标参数，同时目标参数从2开始计数
+		if (this.typeof(target) === "Boolean") {
+			deep = target;
+			target = arguments[1] || {};
+			// skip the boolean and the target
+			i = 2;
+		}
+		// 当目标参数不是object 或者不是函数的时候，设置成object类型的
+		if (this.typeof(target) !== "Object" && this.typeof(target) !== 'Function') {
+			target = {};
+		}
+		//如果extend只有一个函数的时候，那么将跳出后面的操作
+		if (length === i) {
+			target = this;
+			--i;
+		}
+		for (; i < length; i++) {
+			// 仅处理不是 null/undefined values
+			if ((options = arguments[i]) != null) {
+				// 扩展options对象
+				for (name in options) {
+					src = target[name];
+					copy = options[name];
+					// 如果目标对象和要拷贝的对象是恒相等的话，那就执行下一个循环。
+					if (target === copy) {
+						continue;
+					}
+					// 如果我们拷贝的对象是一个对象或者数组的话(这里没有像jQuery一样做朴素对象验证
+					// jQuery.isPlainObject(copy))
+					if (deep && copy && ((this.typeof(copy) === 'Object') || (copyIsArray = this.isArray(copy)))) {
+						if (copyIsArray) {
+							copyIsArray = false;
+							clone = src && this.isArray(src) ? src : [];
+						} else {
+							clone = src && (this.typeof(src) === 'Object') ? src : {};
+						}
+						//不删除目标对象，将目标对象和原对象重新拷贝一份出来。 
+						target[name] = this.extend(deep, clone, copy);
+						// 如果options[name]的不为空，那么将拷贝到目标对象上去。
+					} else if (copy !== undefined) {
+						target[name] = copy;
+					}
+				}
+			}
+		}
+		// 返回修改的目标对象
+		return target;
 	};
 
 	/**

@@ -23,6 +23,7 @@ javascript toolkit
 - `toolkit.isCn` 检测字符串是否全是中文 `toolkit.isCn('中文')`
 - `toolkit.objectSize` 获取对象长度 `toolkit.objectSize({a:1,b:2,name:'小明'})`
 - `toolkit.typeof` 数据类型判断 `toolkit.typeof('要判断的数据')`
+- `toolkit.extend` 对象拷贝;类`jQuery.extend`,但没有做朴素对象验证 `toolkit.extend({},{})`
 - `toolkit.range` 生成范围为[start,end)的整数数组 `toolkit.range(1,10)`
 - `toolkit.isArray` 判断目标对象是否是数组 `toolkit.isArray([1,2,3])`
 - `toolkit.inArray` 判断元素是否在目标数组中 `toolkit.inArray([1,2,3],2)`
