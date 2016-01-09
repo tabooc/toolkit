@@ -213,8 +213,8 @@
 	 * 生成HEX随机颜色
 	 * @return {String} #ff0000形式色值
 	 */
-	toolkit.randomColor = function(){
-		return '#'+('00000'+(Math.random()*0x1000000<<0).toString(16)).substr(-6); 
+	toolkit.randomColor = function() {
+		return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).substr(-6);
 	};
 
 	/**
@@ -222,7 +222,7 @@
 	 * @param  {String}  string 要检测的字符串
 	 * @return {Boolean}        
 	 */
-	toolkit.isCn = function(string){
+	toolkit.isCn = function(string) {
 		return /^[\u4e00-\u9fa5]+$/g.test(string);
 	};
 
@@ -237,6 +237,15 @@
 			obj.hasOwnProperty(i) && len++;
 		}
 		return len;
+	};
+
+	/**
+	 * 数据类型判断
+	 * @param  {Object} obj
+	 * @return {Boolean}     
+	 */
+	toolkit.typeof = function(obj) {
+		return isNaN(obj) ? 'NaN' : Object.prototype.toString.call(obj).slice(8, -1);
 	};
 
 	/**
