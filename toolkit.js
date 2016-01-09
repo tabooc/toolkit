@@ -20,7 +20,7 @@
 
 	//工具箱
 	var toolkit = {};
-	
+
 	//版本
 	toolkit.version = '1.0.0';
 
@@ -28,9 +28,7 @@
 	 * 空方法
 	 * @return {undefined}
 	 */
-	toolkit.noop = function() {
-
-	};
+	toolkit.noop = function() {};
 
 	/**
 	 * 用逗号分割数字
@@ -111,6 +109,41 @@
 		var trimer = new RegExp('(^[\\s\\t\\xa0\\u3000]+)|([\\u3000\\xa0\\s\\t]+\x24)', 'g');
 		return string.replace(trimer, '');
 	};
+
+	/**
+	 * 生成UUID
+	 * @return {String}
+	 */
+	toolkit.guid = function() {
+		function s4() {
+			return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+		}
+		return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+			s4() + '-' + s4() + s4() + s4();
+	}
+
+	/**
+	 * 生成范围为[start,end)的整数数组
+	 * @param  {Number} start 起始值
+	 * @param  {Number} end   结束值
+	 * @param  {Number} step  步进值
+	 * @return {Array}       整数数组
+	 */
+	toolkit.range = function(start, end, step) {
+		step || (step = 1);
+		if (end == null) {
+			end = start || 0;
+			start = 0;
+		}
+		var index = -1,
+			length = Math.max(0, Math.ceil((end - start) / step)),
+			result = new Array(length);
+		while (++index < length) {
+			result[index] = start;
+			start += step;
+		}
+		return result;
+	}
 
 	/**
 	 * 判断目标对象是否是数组
@@ -346,6 +379,48 @@
 		return new Date();
 	};
 
+	//浏览器标识码
+	toolkit.userAgent = window.navigator.userAgent.toLowerCase();
+
+	toolkit.osType = function(needle) {
+		return toolkit.userAgent.indexOf(needle) !== -1;
+	};
+
+	toolkit.ios = function() {
+		return toolkit.iphone() || toolkit.ipod() || toolkit.ipad();
+	};
+
+	toolkit.iphone = function() {
+		return toolkit.osType('iphone');
+	};
+
+	toolkit.ipod = function() {
+		return toolkit.osType('ipod');
+	};
+
+	toolkit.ipad = function() {
+		return toolkit.osType('ipad');
+	};
+
+	toolkit.android = function() {
+		return toolkit.osType('android');
+	};
+
+	toolkit.androidPhone = function() {
+		return toolkit.android() && toolkit.osType('mobile');
+	};
+
+	toolkit.androidTablet = function() {
+		return toolkit.android() && !toolkit.osType('mobile');
+	};
+
+	toolkit.portrait = function() {
+		return (window.innerHeight / window.innerWidth) > 1;
+	};
+
+	toolkit.landscape = function() {
+		return (window.innerHeight / window.innerWidth) < 1;
+	};
 
 	return toolkit;
 }));
