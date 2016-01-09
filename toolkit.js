@@ -54,8 +54,8 @@
 	 * @return {String}
 	 */
 	toolkit.pad = function(number, length) {
-		var source = number;
-		var pre = "",
+		var source = number,
+			pre = "",
 			negative = (source < 0),
 			string = Math.abs(source).toString();
 
@@ -121,6 +121,80 @@
 		return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
 			s4() + '-' + s4() + s4() + s4();
 	}
+
+	/**
+	 * URI - query属性查询
+	 * @param {String} attr      要搜索的字段
+	 * @param {String} splitChar 地址栏参数分隔符,默认为'&'
+	 * @return {String}			搜索到的对应字段值
+	 */
+	toolkit.URISearch = function(attr, splitChar) {
+		var query = window.location.search,
+			splitChar = splitChar || '&',
+			attrArr = [],
+			attrObj = {};
+
+		query = query.replace(/^\?/, '');
+		attrArr = query.split(splitChar);
+		for (var i = attrArr.length - 1; i >= 0; i--) {
+			attrObj[attrArr[i].split('=')[0]] = attrArr[i].split('=')[1];
+		};
+
+		return attrObj[attr];
+	};
+
+	/**
+	 * 判断版本号是否在两者之间
+	 * 需传入版本规范一致的版本号,如('1.0.0','0.9.0','3.1.5')
+	 * @param  {String} version 当前版本
+	 * @param  {String} lower   最低版本
+	 * @param  {String} upper   最高版本
+	 * @return {Boolean}        
+	 */
+	toolkit.betweenVersion = function(version, lower, upper) {
+		return this.compareVersion(version, lower) >= 0 && this.compareVersion(version, upper) <= 0;
+	};
+	/**
+	 * 版本号大小比较
+	 * @param  {String} a 版本号
+	 * @param  {String} b 版本号
+	 * @return {Number}   0 || 大于0 || 小于0
+	 */
+	toolkit.compareVersion = function(a, b) {
+		var a = a.split(/[^\d]+/g),
+			b = b.split(/[^\d]+/g),
+			len = a.length,
+			num, num2;
+		for (var i = 0; i < len; i++) {
+			num = +a[i];
+			num2 = +b[i];
+			if (num != num2) return num - num2;
+		}
+		return 0;
+	};
+
+	/**
+	 * 默认值设置
+	 * @param  {String} str    要处理的字符串
+	 * @param  {String} newStr 字符串默认值
+	 * @return {String}
+	 */
+	toolkit.default = function(str, newStr) {
+		return str || newStr;
+	};
+
+	/**
+	 * 获取对象长度
+	 * @param  {Object} obj 对象,如{a:1,b:2}
+	 * @return {Number}
+	 */
+	toolkit.objectSize = function(obj) {
+		var len = 0;
+		for (var i in obj) {
+			obj.hasOwnProperty(i) && len++;
+		}
+		return len;
+	};
 
 	/**
 	 * 生成范围为[start,end)的整数数组
@@ -379,39 +453,56 @@
 		return new Date();
 	};
 
+	/**
+	 * 获取指定月份的天数
+	 * @param  {String | Number} year  合法的年份
+	 * @param  {String | Number} month 月份(1-12)
+	 * @return {Number}
+	 */
+	toolkit.getDate = function(year, month) {
+		return new Date(year, month, 0).getDate();
+	};
+
 	//浏览器标识码
 	toolkit.userAgent = window.navigator.userAgent.toLowerCase();
 
 	toolkit.osType = function(needle) {
-		return toolkit.userAgent.indexOf(needle) !== -1;
+		return this.userAgent.indexOf(needle) !== -1;
 	};
 
 	toolkit.ios = function() {
-		return toolkit.iphone() || toolkit.ipod() || toolkit.ipad();
+		return this.iphone() || this.ipod() || this.ipad();
 	};
 
 	toolkit.iphone = function() {
-		return toolkit.osType('iphone');
+		return this.osType('iphone');
 	};
 
 	toolkit.ipod = function() {
-		return toolkit.osType('ipod');
+		return this.osType('ipod');
 	};
 
 	toolkit.ipad = function() {
-		return toolkit.osType('ipad');
+		return this.osType('ipad');
 	};
 
 	toolkit.android = function() {
-		return toolkit.osType('android');
+		return this.osType('android');
 	};
 
 	toolkit.androidPhone = function() {
-		return toolkit.android() && toolkit.osType('mobile');
+		return this.android() && this.osType('mobile');
 	};
 
 	toolkit.androidTablet = function() {
-		return toolkit.android() && !toolkit.osType('mobile');
+		return this.android() && !this.osType('mobile');
+	};
+	//判断是否是微信环境
+	toolkit.isWechat = function() {
+		if (this.userAgent.match(/MicroMessenger/i) == "micromessenger") {
+			return true;
+		}
+		return false;
 	};
 
 	toolkit.portrait = function() {
