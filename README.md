@@ -18,6 +18,7 @@ javascript toolkit
 - `toolkit.betweenVersion` 判断版本号是否在两者之间 `toolkit.betweenVersion('1.0.0','0.9.0','3.1.5')`
 - `toolkit.compareVersion` 版本号大小比较 `toolkit.compareVersion('1.0.0','0.9.0')`
 - `toolkit.default` 默认值设置 `toolkit.default('','默认值')`
+- `toolkit.randomStr` 随机字符串生成 `toolkit.randomStr(15),toolkit.randomStr(15,'$%^&*()_-+=',true)`
 - `toolkit.objectSize` 获取对象长度 `toolkit.objectSize({a:1,b:2,name:'小明'})`
 - `toolkit.range` 生成范围为[start,end)的整数数组 `toolkit.range(1,10)`
 - `toolkit.isArray` 判断目标对象是否是数组 `toolkit.isArray([1,2,3])`

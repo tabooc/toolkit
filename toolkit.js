@@ -107,7 +107,7 @@
 	 */
 	toolkit.trim = function(string) {
 		var trimer = new RegExp('(^[\\s\\t\\xa0\\u3000]+)|([\\u3000\\xa0\\s\\t]+\x24)', 'g');
-		return string.replace(trimer, '');
+		return string ? string.replace(trimer, '') : '';
 	};
 
 	/**
@@ -181,6 +181,32 @@
 	 */
 	toolkit.default = function(str, newStr) {
 		return str || newStr;
+	};
+
+	/**
+	 * 随机字符串生成
+	 * @param  {Int} length 期望生成字符串的长度
+	 * @param  {String} string 自定义字符串
+	 * @param  {Boolean} Boolean 是否用自定义字符串覆盖默认值(A-Za-z0-9)
+	 * @return {String}
+	 */
+	toolkit.randomStr = function(length, string, model) {
+		var result = '',
+			length = length || 12,
+			source = 'ABCDEFJHIJKLMNOPQISTUVWXYZabcdefjhijklmnopqistuvwxyz0123456789';
+
+		if (this.trim(string)) {
+			if (model) {
+				source = string;
+			} else {
+				source += string;
+			}
+		}
+
+		for (var i = 0, len = source.length; i < length; i++) {
+			result += source[this.randomInt(0, len - 1)];
+		}
+		return result;
 	};
 
 	/**
