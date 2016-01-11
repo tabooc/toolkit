@@ -46,3 +46,5 @@ javascript toolkit
 - `toolkit.portrait` 是否竖屏 `toolkit.portrait()`
 - `toolkit.landscape` 是否横屏 `toolkit.landscape()`
 - `toolkit.runCode` 执行代码 `toolkit.runCode(id)`
+- `toolkit.closeCurrentPage` 定时关闭当前页 `toolkit.closeCurrentPage(1000)`
+- `toolkit.getCountDown` 天数倒计时 `toolkit.getCountDown(2020,1,1)`

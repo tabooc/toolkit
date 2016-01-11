@@ -641,5 +641,39 @@
 		newWindow.document.close();
 	};
 
+	/**
+	 * 定时关闭当前页
+	 * @param  {Number} delay 毫秒
+	 * @return {undefined}
+	 */
+	toolkit.closeCurrentPage = function(delay) {
+		setTimeout(function() {
+			window.open('', '_self', '');
+			window.close();
+		}, delay || 0);
+	};
+
+	/**
+	 * 天数倒计时
+	 * @param  {Number}
+	 * @param  {Number}
+	 * @param  {Number}
+	 * @param  {Number}
+	 * @param  {Number}
+	 * @param  {Number}
+	 * @return {Number}
+	 */
+	toolkit.getCountDown = function(Y, M, D, h, m, s) {
+		Y = Y || 0;
+		M = M || 0;
+		D = D || 0;
+		h = h || 0;
+		m = m || 0;
+		s = s || 0;
+		var date = new Date(Y, M - 1, D, h, m, s),
+			times = date.getTime() - new Date().getTime();
+		return Math.ceil(times / (1000 * 60 * 60 * 24));
+	};
+
 	return toolkit;
 }));
