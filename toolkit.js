@@ -22,7 +22,7 @@
 	var toolkit = {};
 
 	//版本
-	toolkit.version = '1.0.2';
+	toolkit.version = '1.0.3';
 
 	/**
 	 * 空方法
@@ -593,35 +593,35 @@
 	};
 
 	toolkit.ios = function() {
-		return _userAgent.iphone() || _userAgent.ipod() || _userAgent.ipad();
+		return this.iphone() || this.ipod() || this.ipad();
 	};
 
 	toolkit.iphone = function() {
-		return _userAgent.osType('iphone');
+		return this.osType('iphone');
 	};
 
 	toolkit.ipod = function() {
-		return _userAgent.osType('ipod');
+		return this.osType('ipod');
 	};
 
 	toolkit.ipad = function() {
-		return _userAgent.osType('ipad');
+		return this.osType('ipad');
 	};
 
 	toolkit.android = function() {
-		return _userAgent.osType('android');
+		return this.osType('android');
 	};
 
 	toolkit.androidPhone = function() {
-		return _userAgent.android() && _userAgent.osType('mobile');
+		return this.android() && this.osType('mobile');
 	};
 
 	toolkit.androidTablet = function() {
-		return _userAgent.android() && !_userAgent.osType('mobile');
+		return this.android() && !this.osType('mobile');
 	};
 	//判断是否是微信环境
 	toolkit.isWechat = function() {
-		if (_userAgent.match(/MicroMessenger/i) == "micromessenger") {
+		if (this.match(/MicroMessenger/i) == "micromessenger") {
 			return true;
 		}
 		return false;
