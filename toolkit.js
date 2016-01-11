@@ -675,5 +675,31 @@
 		return Math.ceil(times / (1000 * 60 * 60 * 24));
 	};
 
+	/**
+	 * 查看网页源码(需求:1 服务器环境;2 权限)
+	 * @param  {String}
+	 * @return {undefined}
+	 */
+	toolkit.viewSource = function(url) {
+		var xmlHttp = null;
+		if (window.XMLHttpRequest) {
+			xmlHttp = new XMLHttpRequest();
+		} else {
+			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlHttp.onreadystatechange = function() {
+			if (xmlHttp.readyState == 4) {
+				if (xmlHttp.status == 200) {
+					alert(xmlHttp.responseText);			
+				}else{
+					throw new Error('fail');
+				}
+			}
+		};
+
+		xmlHttp.open("GET", url, true);
+		xmlHttp.send(null);
+	};
+
 	return toolkit;
 }));

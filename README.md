@@ -48,3 +48,4 @@ javascript toolkit
 - `toolkit.runCode` 执行代码 `toolkit.runCode(id)`
 - `toolkit.closeCurrentPage` 定时关闭当前页 `toolkit.closeCurrentPage(1000)`
 - `toolkit.getCountDown` 天数倒计时 `toolkit.getCountDown(2020,1,1)`
+- `toolkit.viewSource` 查看网页源码(需求:1 服务器环境;2 权限) `toolkit.viewSource('index.html')`
