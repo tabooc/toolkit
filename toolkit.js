@@ -6,16 +6,9 @@
  * support IE6+ and other browsers
  * source:lib,original,contributors
  */
-(function(root, factory) {
-	if (typeof exports === 'object' && typeof module === 'object') {
-		module.exports = factory();
-	} else if (typeof define === 'function' && define.amd) {
-		define(factory);
-	} else if (typeof exports === 'object') {
-		exports["toolkit"] = factory();
-	} else {
-		root["toolkit"] = factory();
-	}
+(function(global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() : typeof define === 'function' && define.amd ? define(factory) :
+		global.toolkit = factory();
 }(this, function() {
 
 	//工具箱
@@ -581,8 +574,8 @@
 	 * @param  {Number | String} year 合法的年份
 	 * @return {Boolean}
 	 */
-	toolkit.leapYear = function(year){
-		return this.getDate(year,2) === 29;
+	toolkit.leapYear = function(year) {
+		return this.getDate(year, 2) === 29;
 	};
 
 	//浏览器标识码
