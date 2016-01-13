@@ -21,6 +21,7 @@ javascript toolkit
 - `toolkit.randomStr` 随机字符串生成 `toolkit.randomStr(15),toolkit.randomStr(15,'$%^&*()_-+=',true)`
 - `toolkit.randomColor` 生成HEX随机颜色 `toolkit.randomColor()`
 - `toolkit.isCn` 检测字符串是否全是中文 `toolkit.isCn('中文')`
+- `toolkit.cloakPhone` 遮挡手机号码中间数字 `toolkit.cloakPhone('13512345678')`
 - `toolkit.objectSize` 获取对象长度 `toolkit.objectSize({a:1,b:2,name:'小明'})`
 - `toolkit.typeof` 数据类型判断 `toolkit.typeof('要判断的数据')`
 - `toolkit.extend` 对象拷贝;类`jQuery.extend`,但没有做朴素对象验证 `toolkit.extend({},{})`
