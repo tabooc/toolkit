@@ -220,6 +220,15 @@
 	};
 
 	/**
+	 * 遮挡手机号码中间数字
+	 * @param  {String} phone 11位手机号
+	 * @return {String}       
+	 */
+	toolkit.cloakPhone = function(phone){
+		return phone.slice(0,3)+'****'+phone.slice(-4);
+	};
+
+	/**
 	 * 获取对象长度
 	 * @param  {Object} obj 对象,如{a:1,b:2}
 	 * @return {Number}
