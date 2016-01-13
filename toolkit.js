@@ -623,7 +623,7 @@
 	};
 	//判断是否是微信环境
 	toolkit.isWechat = function() {
-		if (this.match(/MicroMessenger/i) == "micromessenger") {
+		if (_userAgent.match(/MicroMessenger/i) == "micromessenger") {
 			return true;
 		}
 		return false;
