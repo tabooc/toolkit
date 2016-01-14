@@ -710,5 +710,22 @@
 		xmlHttp.send(null);
 	};
 
+	/**
+	 * 判断图片是否加载完成
+	 * @param  {element}   img
+	 * @param  {Function} callback
+	 */
+	toolkit.imgComplete = function(img,callback){
+		var T = null;
+		T = setInterval(function(){
+			if(img.complete){
+				clearInterval(T);
+				if(typeof callback === 'function'){
+					callback();
+				}
+			}
+		},50);
+	};
+
 	return toolkit;
 }));
