@@ -211,6 +211,22 @@
 	};
 
 	/**
+	 * 随机打乱数组元素
+	 * @param  {Array} arr 需要处理的目标数组
+	 * @return {Array}     打乱后的数组
+	 */
+	toolkit.shuffle = function(arr) {
+		var len = arr.length;
+		for (var i = 0; i < len - 1; i++) {
+			var idx = Math.floor(Math.random() * (len - i));
+			var temp = arr[idx];
+			arr[idx] = arr[len - i - 1];
+			arr[len - i - 1] = temp;
+		}
+		return arr;
+	};
+
+	/**
 	 * 检测字符串是否全是中文
 	 * @param  {String}  string 要检测的字符串
 	 * @return {Boolean}        
@@ -224,8 +240,8 @@
 	 * @param  {String} phone 11位手机号
 	 * @return {String}       
 	 */
-	toolkit.cloakPhone = function(phone){
-		return phone.slice(0,3)+'****'+phone.slice(-4);
+	toolkit.cloakPhone = function(phone) {
+		return phone.slice(0, 3) + '****' + phone.slice(-4);
 	};
 
 	/**
@@ -699,8 +715,8 @@
 		xmlHttp.onreadystatechange = function() {
 			if (xmlHttp.readyState == 4) {
 				if (xmlHttp.status == 200) {
-					alert(xmlHttp.responseText);			
-				}else{
+					alert(xmlHttp.responseText);
+				} else {
 					throw new Error('fail');
 				}
 			}
@@ -715,16 +731,16 @@
 	 * @param  {element}   img
 	 * @param  {Function} callback
 	 */
-	toolkit.imgComplete = function(img,callback){
+	toolkit.imgComplete = function(img, callback) {
 		var T = null;
-		T = setInterval(function(){
-			if(img.complete){
+		T = setInterval(function() {
+			if (img.complete) {
 				clearInterval(T);
-				if(typeof callback === 'function'){
+				if (typeof callback === 'function') {
 					callback();
 				}
 			}
-		},50);
+		}, 50);
 	};
 
 	return toolkit;
