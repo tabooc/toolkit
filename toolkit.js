@@ -360,7 +360,7 @@
 	};
 
 	/**
-	 * 判断元素是否在目标数组中
+	 * 判断元素是否在目标数组中(现代浏览器可用indexOf)
 	 * @param  {Array} array
 	 * @param  {Object} item
 	 * @return {Boolean}

@@ -20,6 +20,7 @@ javascript toolkit
 - `toolkit.default` 默认值设置 `toolkit.default('','默认值')`
 - `toolkit.randomStr` 随机字符串生成 `toolkit.randomStr(15),toolkit.randomStr(15,'$%^&*()_-+=',true)`
 - `toolkit.randomColor` 生成HEX随机颜色 `toolkit.randomColor()`
+- `toolkit.shuffle` 随机打乱数组元素 `toolkit.shuffle([0,1,2,3,4,5,6,7,8,9])`
 - `toolkit.isCn` 检测字符串是否全是中文 `toolkit.isCn('中文')`
 - `toolkit.cloakPhone` 遮挡手机号码中间数字 `toolkit.cloakPhone('13512345678')`
 - `toolkit.objectSize` 获取对象长度 `toolkit.objectSize({a:1,b:2,name:'小明'})`
