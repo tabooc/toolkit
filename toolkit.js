@@ -7,15 +7,13 @@
  * source:lib,original,contributors
  */
 (function(global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() : typeof define === 'function' && define.amd ? define(factory) :
-		global.toolkit = factory();
-}(this, function() {
-
+	typeof exports === 'object' && typeof module !== 'undefined' ? (module.exports = factory()) : typeof define === 'function' && define.amd ? define(factory) : (global.toolkit = factory());
+})(this, function() {
 	//工具箱
 	var toolkit = {};
 
 	//版本
-	toolkit.version = '1.0.3';
+	toolkit.version = '1.0.4';
 
 	/**
 	 * 空方法
@@ -35,9 +33,42 @@
 			length = 3;
 		}
 
-		source = source.toString().split(".");
-		source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{' + length + '})+$)', 'ig'), "$1,");
-		return source.join(".");
+		source = source.toString().split('.');
+		source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{' + length + '})+$)', 'ig'), '$1,');
+		return source.join('.');
+	};
+
+	/**
+	 * 数字格式化
+	 * http://locutus.io/php/strings/number_format/
+	 *
+	 * @param {Number} number 要处理的数字
+	 * @param {Number} decimals 保留的小数位数
+	 * @param {String} dec_point 整数和小数之间的分隔符
+	 * @param {String} thousands_sep 整数分隔符(3位分一次)
+	 * @returns {String}
+	 */
+	toolkit.numberFormat = function(number, decimals, dec_point, thousands_sep) {
+		number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+		var n = !isFinite(+number) ? 0 : +number,
+			prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+			sep = typeof thousands_sep === 'undefined' ? ',' : thousands_sep,
+			dec = typeof dec_point === 'undefined' ? '.' : dec_point,
+			s = '',
+			toFixedFix = function(n, prec) {
+				var k = Math.pow(10, prec);
+				return '' + (Math.round(n * k) / k).toFixed(prec);
+			};
+		// Fix for IE parseFloat(0.55).toFixed(0) = 0;
+		s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+		if (s[0].length > 3) {
+			s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+		}
+		if ((s[1] || '').length < prec) {
+			s[1] = s[1] || '';
+			s[1] += new Array(prec - s[1].length + 1).join('0');
+		}
+		return s.join(dec);
 	};
 
 	/**
@@ -48,22 +79,22 @@
 	 */
 	toolkit.pad = function(number, length) {
 		var source = number,
-			pre = "",
-			negative = (source < 0),
+			pre = '',
+			negative = source < 0,
 			string = Math.abs(source).toString();
 
 		if (string.length < length) {
-			pre = (new Array(length - string.length + 1)).join('0');
+			pre = new Array(length - string.length + 1).join('0');
 		}
 
-		return (negative ? "-" : "") + pre + string;
+		return (negative ? '-' : '') + pre + string;
 	};
 
 	/**
 	 * 生成[min, max]范围内的随机整数
 	 * @param  {Number}  min
 	 * @param  {Number}  max
-	 * @return {Number}  
+	 * @return {Number}
 	 */
 	toolkit.randomInt = function(min, max) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
@@ -111,9 +142,8 @@
 		function s4() {
 			return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 		}
-		return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-			s4() + '-' + s4() + s4() + s4();
-	}
+		return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+	};
 
 	/**
 	 * URI - query属性查询
@@ -131,9 +161,9 @@
 		attrArr = query.split(splitChar);
 		for (var i = attrArr.length - 1; i >= 0; i--) {
 			attrObj[attrArr[i].split('=')[0]] = attrArr[i].split('=')[1];
-		};
+		}
 
-		return attrObj[attr];
+		return attrObj[attr] || '';
 	};
 
 	/**
@@ -142,7 +172,7 @@
 	 * @param  {String} version 当前版本
 	 * @param  {String} lower   最低版本
 	 * @param  {String} upper   最高版本
-	 * @return {Boolean}        
+	 * @return {Boolean}
 	 */
 	toolkit.betweenVersion = function(version, lower, upper) {
 		return this.compareVersion(version, lower) >= 0 && this.compareVersion(version, upper) <= 0;
@@ -157,7 +187,8 @@
 		var a = a.split(/[^\d]+/g),
 			b = b.split(/[^\d]+/g),
 			len = a.length,
-			num, num2;
+			num,
+			num2;
 		for (var i = 0; i < len; i++) {
 			num = +a[i];
 			num2 = +b[i];
@@ -180,7 +211,7 @@
 	 * 随机字符串生成
 	 * @param  {Int} length 期望生成字符串的长度
 	 * @param  {String} string 自定义字符串
-	 * @param  {Boolean} Boolean 是否用自定义字符串覆盖默认值(A-Za-z0-9)
+	 * @param  {Boolean} model 是否用自定义字符串覆盖默认值(A-Za-z0-9)
 	 * @return {String}
 	 */
 	toolkit.randomStr = function(length, string, model) {
@@ -207,7 +238,7 @@
 	 * @return {String} #ff0000形式色值
 	 */
 	toolkit.randomColor = function() {
-		return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).substr(-6);
+		return '#' + ('00000' + ((Math.random() * 0x1000000) << 0).toString(16)).substr(-6);
 	};
 
 	/**
@@ -229,7 +260,7 @@
 	/**
 	 * 检测字符串是否全是中文
 	 * @param  {String}  string 要检测的字符串
-	 * @return {Boolean}        
+	 * @return {Boolean}
 	 */
 	toolkit.isCn = function(string) {
 		return /^[\u4e00-\u9fa5]+$/g.test(string);
@@ -238,7 +269,7 @@
 	/**
 	 * 遮挡手机号码中间数字
 	 * @param  {String} phone 11位手机号
-	 * @return {String}       
+	 * @return {String}
 	 */
 	toolkit.cloakPhone = function(phone) {
 		return phone.slice(0, 3) + '****' + phone.slice(-4);
@@ -260,7 +291,7 @@
 	/**
 	 * 数据类型判断
 	 * @param  {Object} obj
-	 * @return {Boolean}     
+	 * @return {Boolean}
 	 */
 	toolkit.typeof = function(obj) {
 		var type = Object.prototype.toString.call(obj).slice(8, -1);
@@ -273,20 +304,25 @@
 	 * @return {Object}
 	 */
 	toolkit.extend = function() {
-		var options, name, src, copy, copyIsArray, clone,
+		var options,
+			name,
+			src,
+			copy,
+			copyIsArray,
+			clone,
 			target = arguments[0] || {},
 			i = 1,
 			length = arguments.length,
 			deep = false;
 		//如果第一个值为bool值，那么就将第二个参数作为目标参数，同时目标参数从2开始计数
-		if (this.typeof(target) === "Boolean") {
+		if (this.typeof(target) === 'Boolean') {
 			deep = target;
 			target = arguments[1] || {};
 			// skip the boolean and the target
 			i = 2;
 		}
 		// 当目标参数不是object 或者不是函数的时候，设置成object类型的
-		if (this.typeof(target) !== "Object" && this.typeof(target) !== 'Function') {
+		if (this.typeof(target) !== 'Object' && this.typeof(target) !== 'Function') {
 			target = {};
 		}
 		//如果extend只有一个函数的时候，那么将跳出后面的操作
@@ -307,14 +343,14 @@
 					}
 					// 如果我们拷贝的对象是一个对象或者数组的话(这里没有像jQuery一样做朴素对象验证
 					// jQuery.isPlainObject(copy))
-					if (deep && copy && ((this.typeof(copy) === 'Object') || (copyIsArray = this.isArray(copy)))) {
+					if (deep && copy && (this.typeof(copy) === 'Object' || (copyIsArray = this.isArray(copy)))) {
 						if (copyIsArray) {
 							copyIsArray = false;
 							clone = src && this.isArray(src) ? src : [];
 						} else {
-							clone = src && (this.typeof(src) === 'Object') ? src : {};
+							clone = src && this.typeof(src) === 'Object' ? src : {};
 						}
-						//不删除目标对象，将目标对象和原对象重新拷贝一份出来。 
+						//不删除目标对象，将目标对象和原对象重新拷贝一份出来。
 						target[name] = this.extend(deep, clone, copy);
 						// 如果options[name]的不为空，那么将拷贝到目标对象上去。
 					} else if (copy !== undefined) {
@@ -348,7 +384,7 @@
 			start += step;
 		}
 		return result;
-	}
+	};
 
 	/**
 	 * 判断目标对象是否是数组
@@ -392,7 +428,6 @@
 	 * @return {Number} index or -1
 	 */
 	toolkit.indexOf = function(array, searchElement, fromIndex) {
-
 		var k;
 
 		// 1. Let O be the result of calling ToObject passing
@@ -462,7 +497,8 @@
 	toolkit.unique = function(array, fn) {
 		var len = array.length,
 			result = array.slice(0),
-			i, datum;
+			i,
+			datum;
 
 		if ('function' !== typeof fn) {
 			fn = function(item1, item2) {
@@ -500,11 +536,10 @@
 		var i = first.length,
 			j = 0;
 
-		if (typeof second.length === "number") {
+		if (typeof second.length === 'number') {
 			for (var l = second.length; j < l; j++) {
 				first[i++] = second[j];
 			}
-
 		} else {
 			while (second[j] !== undefined) {
 				first[i++] = second[j++];
@@ -564,18 +599,13 @@
 	 * @return {Date}        转换后的日期对象
 	 */
 	toolkit.dateParse = function(source) {
-		var reg = new RegExp("^\\d+(\\-|\\/)\\d+(\\-|\\/)\\d+\x24");
+		var reg = new RegExp('^\\d+(\\-|\\/)\\d+(\\-|\\/)\\d+\x24');
 		if ('string' == typeof source) {
 			if (reg.test(source) || isNaN(Date.parse(source))) {
 				var d = source.split(/ |T/),
-					d1 = d.length > 1 ? d[1].split(/[^\d]/) : [0, 0, 0],
+					d1 = d.length > 1 ? d[1].split(/[^\d]/) : [ 0, 0, 0 ],
 					d0 = d[0].split(/[^\d]/);
-				return new Date(d0[0] - 0,
-					d0[1] - 1,
-					d0[2] - 0,
-					d1[0] - 0,
-					d1[1] - 0,
-					d1[2] - 0);
+				return new Date(d0[0] - 0, d0[1] - 1, d0[2] - 0, d1[0] - 0, d1[1] - 0, d1[2] - 0);
 			} else {
 				return new Date(source);
 			}
@@ -637,26 +667,27 @@
 	toolkit.androidTablet = function() {
 		return this.android() && !this.osType('mobile');
 	};
+
 	//判断是否是微信环境
 	toolkit.isWechat = function() {
-		if (_userAgent.match(/MicroMessenger/i) == "micromessenger") {
+		if (_userAgent.match(/MicroMessenger/i) == 'micromessenger') {
 			return true;
 		}
 		return false;
 	};
 
 	toolkit.portrait = function() {
-		return (window.innerHeight / window.innerWidth) > 1;
+		return window.innerHeight / window.innerWidth > 1;
 	};
 
 	toolkit.landscape = function() {
-		return (window.innerHeight / window.innerWidth) < 1;
+		return window.innerHeight / window.innerWidth < 1;
 	};
 
 	/**
 	 * 运行代码
 	 * @param  {String} id 文本域ID
-	 * @return {undefined}   
+	 * @return {undefined}
 	 */
 	toolkit.runCode = function(id) {
 		var code = document.getElementById(id).value;
@@ -710,7 +741,7 @@
 		if (window.XMLHttpRequest) {
 			xmlHttp = new XMLHttpRequest();
 		} else {
-			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+			xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
 		}
 		xmlHttp.onreadystatechange = function() {
 			if (xmlHttp.readyState == 4) {
@@ -722,7 +753,7 @@
 			}
 		};
 
-		xmlHttp.open("GET", url, true);
+		xmlHttp.open('GET', url, true);
 		xmlHttp.send(null);
 	};
 
@@ -744,4 +775,4 @@
 	};
 
 	return toolkit;
-}));
+});

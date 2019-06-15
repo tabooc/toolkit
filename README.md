@@ -8,6 +8,7 @@ javascript toolkit
 - `toolkit.version` 当前类库版本号
 - `toolkit.noop` 空方法
 - `toolkit.comma` 用逗号分割数字 `toolkit.comma(123456.02,3)`
+- `toolkit.numberFormat` 数字格式化 `toolkit.numberFormat(123456.02,3, '.', '#')`
 - `toolkit.pad` 对目标元素按指定长度进行补0处理 `toolkit.pad(12,3)`
 - `toolkit.randomInt` 生成[min, max]范围内的随机整数 `toolkit.randomInt(1,10)`
 - `toolkit.stripTags` 清理字符串中的html标签 `toolkit.stripTags('<a href="#">163</a>')`
