@@ -13,7 +13,7 @@
 	var toolkit = {};
 
 	//版本
-	toolkit.version = '1.0.4';
+	toolkit.version = '1.1.0';
 
 	/**
 	 * 空方法

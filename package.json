@@ -1,0 +1,24 @@
+{
+  "name": "js-toolkit",
+  "version": "1.1.0",
+  "description": "javascript toolkit",
+  "main": "toolkit.js",
+  "directories": {
+    "example": "examples",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tabooc/toolkit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tabooc/toolkit/issues"
+  },
+  "homepage": "https://github.com/tabooc/toolkit#readme"
+}
